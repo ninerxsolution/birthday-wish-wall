@@ -2,10 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import WishCard from './WishCard';
-import { Wish } from '@prisma/client';
+import Link from 'next/link';
+import { Wish, Reply } from '@prisma/client';
+
+type WishWithReplies = Wish & { replies: Reply[] };
 
 export default function WishWall() {
-  const [wishes, setWishes] = useState<Wish[]>([]);
+  const [wishes, setWishes] = useState<WishWithReplies[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -44,12 +47,12 @@ export default function WishWall() {
         <p className="text-gray-500 mb-6">
           Be the first to leave a birthday wish!
         </p>
-        <a
+        <Link
           href="/submit"
           className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 transition-colors"
         >
           Leave a Wish
-        </a>
+        </Link>
       </div>
     );
   }
@@ -60,12 +63,12 @@ export default function WishWall() {
         <h3 className="text-2xl font-semibold text-gray-900">
           Birthday Wishes ({wishes.length})
         </h3>
-        <a
+        <Link
           href="/submit"
           className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 transition-colors"
         >
           + Add Wish
-        </a>
+        </Link>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

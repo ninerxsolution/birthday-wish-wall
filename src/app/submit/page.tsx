@@ -99,9 +99,9 @@ export default function SubmitWish() {
               rows={6}
               required
             />
-            <p className="text-sm text-gray-500 mt-1">
-              Share your heartfelt wishes, memories, or just a simple "Happy Birthday!"
-            </p>
+                         <p className="text-sm text-gray-500 mt-1">
+               Share your heartfelt wishes, memories, or just a simple &ldquo;Happy Birthday!&rdquo;
+             </p>
           </div>
 
           <div className="flex gap-4">
