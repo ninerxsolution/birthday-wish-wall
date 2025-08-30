@@ -4,8 +4,10 @@ import { useState } from 'react';
 import { Wish, Reply } from '@prisma/client';
 import { Heart, MessageCircle, Reply as ReplyIcon } from 'lucide-react';
 
+type WishWithReplies = Wish & { replies: Reply[] };
+
 interface WishCardProps {
-  wish: Wish & { replies: Reply[] };
+  wish: WishWithReplies;
   onUpdate: () => void;
 }
 
