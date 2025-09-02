@@ -93,7 +93,7 @@ export default function WishWall() {
           </button>
           <Link
             href="/submit"
-            className="inline-flex items-center px-6 py-3 border border-gray-300 text-base font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+            className="inline-flex items-center px-6 py-3 border border-gray-300 text-base font-medium rounded-4xl text-gray-700 bg-white hover:bg-gray-50 transition-colors"
           >
             ฝากคำอวยพร
           </Link>
@@ -114,10 +114,10 @@ export default function WishWall() {
         </p>
         <Link
           href="/submit"
-          className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 transition-all transform hover:scale-105"
+          className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-4xl text-white bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 transition-all transform hover:scale-105"
         >
           <Heart className="w-5 h-5 mr-2" />
-          ฝากคำอวยพร
+          เขียนคำอวยพรวันเกิดให้ฉันคนนี้
         </Link>
       </div>
     );
@@ -128,7 +128,7 @@ export default function WishWall() {
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <div>
           <h3 className="text-2xl font-semibold text-gray-900">
-            คำอวยพรวันเกิด ({wishes.length})
+            การ์ดคำอวยพร ({wishes.length})
           </h3>
           <p className="text-gray-600 mt-1">
             {wishes.filter(w => w.revealed).length} แสดงแล้ว, {wishes.filter(w => !w.revealed).length} รอตอบกลับ
@@ -170,7 +170,7 @@ export default function WishWall() {
                     ? 'bg-green-100 text-green-800' 
                     : 'bg-yellow-100 text-yellow-800'
                 }`}>
-                  {w.revealed ? '✨ขอบคุณค้าบ' : '⏳ รอผมก่อนนะค้าบ'}
+                  {w.revealed ? '❤️ ขอบคุณที่แวะมาค้าบ' : '⏳ เดี๋ยวฉันมาตอบนะ!'}
                 </span>
               </div>
             </div>
@@ -196,9 +196,9 @@ export default function WishWall() {
             {/* Reply Messages Section */}
             {w.replies && w.replies.length > 0 && (
               <div className="mt-4 pt-4 border-t border-gray-100">
-                <h4 className="text-sm font-medium text-gray-700 mb-3 flex items-center">
-                  <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
-                 
+                <h4 className="text-sm font-medium text-gray-700 mb-3 flex items-center text-purple-500">
+                  <span className="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>
+                  ตอบกลับ
                 </h4>
                 <div className="space-y-3">
                   {w.replies.map((reply) => (
@@ -209,7 +209,7 @@ export default function WishWall() {
                       <div className="flex items-center justify-between mt-2">
                         <div className="flex items-center text-xs text-red-600">
                           <Heart className="w-3 h-3 mr-1" />
-                          ขอบคุณนะครับ
+                          กันต์
                         </div>
                         <span className="text-xs text-gray-500">
                           {new Date(reply.createdAt).toLocaleDateString()}
