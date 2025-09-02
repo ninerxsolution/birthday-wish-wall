@@ -7,8 +7,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "กำแพงคำอวยพรวันเกิด",
-  description: "แพลตฟอร์มส่วนตัวสำหรับรวบรวมและตอบกลับคำอวยพรวันเกิด",
+  title: "Happy Birthday to Gun!",
+  description: "เขียนการ์ดคำอวยพรให้ชั้นสิ please",
 };
 
 export default function RootLayout({
