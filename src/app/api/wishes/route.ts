@@ -4,7 +4,6 @@ import { prisma } from '@/lib/prisma';
 export async function GET() {
   try {
     const wishes = await prisma.wish.findMany({
-      where: { isPublic: true },
       include: {
         replies: {
           orderBy: { createdAt: 'asc' }
@@ -25,7 +24,7 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
-    const { name, message } = await request.json();
+    const { name, message, friendId } = await request.json();
 
     if (!message || typeof message !== 'string' || message.trim().length === 0) {
       return NextResponse.json(
@@ -48,11 +47,30 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Enforce one-wish-by-friend if friendId is provided
+    if (friendId) {
+      if (typeof friendId !== 'string') {
+        return NextResponse.json(
+          { error: 'friendId must be a string' },
+          { status: 400 }
+        );
+      }
+
+      const existing = await prisma.wish.findUnique({ where: { friendId } });
+      if (existing) {
+        return NextResponse.json(
+          { error: 'Wish already exists for this friend' },
+          { status: 409 }
+        );
+      }
+    }
+
     const wish = await prisma.wish.create({
       data: {
         name: name?.trim() || null,
+        friendId: friendId || null,
         message: message.trim(),
-        isPublic: true
+        revealed: false
       }
     });
 
