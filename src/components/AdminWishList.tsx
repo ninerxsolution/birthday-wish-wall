@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { AlertCircle, RefreshCw, MessageCircle, Reply } from 'lucide-react';
+import { AlertCircle, RefreshCw, MessageCircle, Reply, Clock } from 'lucide-react';
 import Toast, { ToastType, Toast as ToastInterface } from './Toast';
 
 type AdminWish = {
@@ -45,7 +45,7 @@ export default function AdminWishList() {
       setWishes(data);
     } catch (error) {
       console.error('Error fetching wishes:', error);
-      setError('Failed to load wishes. Please try again.');
+      setError('โหลดคำอวยพรไม่สำเร็จ กรุณาลองใหม่อีกครั้งค่ะ');
     } finally {
       setLoading(false);
     }
@@ -73,11 +73,11 @@ export default function AdminWishList() {
       
       setReply('');
       setReplying(null);
-      addToast('success', 'Reply sent successfully!');
+      addToast('success', 'ส่งคำตอบสำเร็จแล้ว!');
       await fetchWishes(); // Refresh to show updated state
     } catch (error) {
       console.error('Error submitting reply:', error);
-      addToast('error', error instanceof Error ? error.message : 'Failed to send reply');
+      addToast('error', error instanceof Error ? error.message : 'ส่งคำตอบไม่สำเร็จ');
     } finally {
       setSubmittingReply(null);
     }
@@ -97,7 +97,7 @@ export default function AdminWishList() {
     return (
       <div className="flex flex-col justify-center items-center py-16 space-y-4">
         <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-purple-600"></div>
-        <p className="text-gray-600">Loading wishes...</p>
+        <p className="text-gray-600">กำลังโหลดคำอวยพร...</p>
       </div>
     );
   }
@@ -107,15 +107,15 @@ export default function AdminWishList() {
       <div className="text-center py-16">
         <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
         <h3 className="text-2xl font-semibold text-gray-700 mb-2">
-          Failed to load wishes
+          โหลดคำอวยพรไม่สำเร็จ
         </h3>
         <p className="text-gray-500 mb-6">{error}</p>
         <button
           onClick={fetchWishes}
-          className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 transition-colors"
+          className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-purple-600 hover:bg-purple-700 transition-colors"
         >
           <RefreshCw className="w-5 h-5 mr-2" />
-          Try Again
+          ลองใหม่
         </button>
       </div>
     );
@@ -126,31 +126,34 @@ export default function AdminWishList() {
       <div className="bg-white rounded-lg shadow p-6">
         <div className="flex justify-between items-center mb-6">
           <div>
-            <h2 className="text-xl font-semibold text-gray-900">Wishes</h2>
+            <h2 className="text-xl font-semibold text-gray-900">คำอวยพร</h2>
             <p className="text-sm text-gray-600 mt-1">
-              {wishes.length} total wishes • {wishes.filter(w => w.replies && w.replies.length > 0).length} with replies
+              {wishes.length} คำอวยพรทั้งหมด • {wishes.filter(w => w.replies && w.replies.length > 0).length} มีคำตอบ • {wishes.filter(w => !w.replies || w.replies.length === 0).length} ยังไม่มีคำตอบ
+            </p>
+            <p className="text-xs text-purple-600 mt-1">
+              เรียงลำดับ: ยังไม่มีคำตอบขึ้นก่อน • ใหม่ล่าสุดขึ้นก่อน
             </p>
           </div>
           <button
             onClick={fetchWishes}
             disabled={loading}
-            className="inline-flex items-center px-3 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 transition-colors"
+            className="inline-flex items-center px-3 py-2 border border-gray-300 text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 transition-colors"
           >
             <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
-            Refresh
+            รีเฟรช
           </button>
         </div>
 
         {wishes.length === 0 && (
           <div className="text-center py-12">
             <MessageCircle className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <p className="text-gray-500">No wishes yet.</p>
+            <p className="text-gray-500">ยังไม่มีคำอวยพรเลย</p>
           </div>
         )}
 
         <ul className="divide-y divide-gray-200">
           {wishes.map(w => (
-            <li key={w.id} className="py-6">
+            <li key={w.id} className={`py-6 ${(!w.replies || w.replies.length === 0) ? 'bg-orange-50/50 px-4 -mx-4 rounded-lg' : ''}`}>
               <div className="flex justify-between items-start">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
@@ -160,6 +163,12 @@ export default function AdminWishList() {
                     <span className="text-xs text-gray-500">
                       {formatDate(w.createdAt)}
                     </span>
+                    {(!w.replies || w.replies.length === 0) && (
+                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
+                        <Clock className="w-3 h-3 mr-1" />
+                        ยังไม่มีคำตอบ
+                      </span>
+                    )}
                   </div>
                   <p className="text-gray-700 whitespace-pre-wrap leading-relaxed">{w.message}</p>
                   
@@ -168,7 +177,7 @@ export default function AdminWishList() {
                     <div className="mt-3 pl-4 border-l-2 border-purple-200">
                       <p className="text-xs font-medium text-purple-600 mb-2 flex items-center gap-1">
                         <Reply className="w-3 h-3" />
-                        Your replies ({w.replies.length})
+                        คำตอบของคุณ ({w.replies.length})
                       </p>
                       {w.replies.map((reply) => (
                         <div key={reply.id} className="mb-2 p-2 bg-purple-50 rounded text-sm">
@@ -190,12 +199,12 @@ export default function AdminWishList() {
                   {replying === w.id ? (
                     <>
                       <Reply className="w-4 h-4 mr-1" />
-                      Cancel
+                      ยกเลิก
                     </>
                   ) : (
                     <>
                       <Reply className="w-4 h-4 mr-1" />
-                      Reply
+                      ตอบกลับ
                     </>
                   )}
                 </button>
@@ -208,19 +217,19 @@ export default function AdminWishList() {
                     rows={3}
                     value={reply}
                     onChange={(e) => setReply(e.target.value)}
-                    placeholder="Write your reply..."
+                    placeholder="เขียนคำตอบของคุณ..."
                     maxLength={1000}
                   />
                   <div className="flex justify-between items-center mt-3">
                     <span className="text-xs text-gray-500">
-                      {reply.length}/1000 characters
+                      {reply.length}/1000 ตัวอักษร
                     </span>
                     <div className="flex gap-2">
                       <button
                         onClick={() => setReplying(null)}
                         className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800 transition-colors"
                       >
-                        Cancel
+                        ยกเลิก
                       </button>
                       <button
                         onClick={() => sendReply(w.id)}
@@ -230,10 +239,10 @@ export default function AdminWishList() {
                         {submittingReply === w.id ? (
                           <>
                             <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2 inline"></div>
-                            Sending...
+                            กำลังส่ง...
                           </>
                         ) : (
-                          'Send Reply'
+                          'ส่งคำตอบ'
                         )}
                       </button>
                     </div>

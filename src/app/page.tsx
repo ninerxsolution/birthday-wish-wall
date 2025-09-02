@@ -5,11 +5,11 @@ export default function Home() {
     <div className="space-y-8">
       <div className="text-center">
         <h2 className="text-4xl font-bold text-gray-900 mb-4">
-          Welcome to My Birthday Wish Wall! 🎉
+          ยินดีต้อนรับสู่กำแพงคำอวยพรวันเกิดของเรา! 🎉
         </h2>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-          Thank you for visiting! Here you can see all the wonderful birthday wishes 
-          from friends and family. Feel free to leave your own wish too!
+          ขอบคุณที่แวะมาค่ะ! ที่นี่คุณจะได้เห็นคำอวยพรวันเกิดสุดน่ารัก 
+          จากเพื่อน ๆ และครอบครัว และอย่าลืมฝากคำอวยพรของคุณเองด้วยนะคะ!
         </p>
       </div>
       
