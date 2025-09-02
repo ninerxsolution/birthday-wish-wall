@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { AlertCircle, RefreshCw, Users, Edit3, Trash2, Save, X } from 'lucide-react';
-import Toast, { ToastType } from './Toast';
+import Toast, { ToastType, Toast as ToastInterface } from './Toast';
 import ImageUploader from './ImageUploader';
 
 type Friend = {
@@ -25,7 +25,7 @@ export default function FriendsList() {
   const [editForm, setEditForm] = useState({ name: '', avatarUrl: '' });
   const [saving, setSaving] = useState<string | null>(null);
   const [deleting, setDeleting] = useState<string | null>(null);
-  const [toasts, setToasts] = useState<Toast[]>([]);
+  const [toasts, setToasts] = useState<ToastInterface[]>([]);
 
   const addToast = (type: ToastType, message: string) => {
     const id = Math.random().toString(36).substr(2, 9);
