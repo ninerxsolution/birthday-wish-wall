@@ -1,10 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { checkAdminAuth, getAdminAuthError } from '@/lib/admin-auth';
 
 export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  if (!checkAdminAuth(request)) {
+    return NextResponse.json(getAdminAuthError(), { status: 401 });
+  }
   try {
     const { id } = await params;
     const { name, avatarUrl } = await request.json();
@@ -45,6 +49,9 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  if (!checkAdminAuth(request)) {
+    return NextResponse.json(getAdminAuthError(), { status: 401 });
+  }
   try {
     const { id } = await params;
     // Delete friend and associated wish (cascade)
