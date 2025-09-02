@@ -171,7 +171,10 @@ export default function SubmitWish() {
                     </button>
                   ))}
                 </div>
-                <p className="text-xs text-gray-500 mt-2">Your avatar appears on the wall; your name stays hidden.</p>
+                                 <p className="text-xs text-gray-500 mt-2">
+                   Your avatar appears on the wall; your name stays hidden. 
+                   Images are automatically compressed for optimal performance.
+                 </p>
               </div>
             </div>
           </div>

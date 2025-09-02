@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { X, Image as ImageIcon } from 'lucide-react';
+import imageCompression from 'browser-image-compression';
 
 interface ImageUploaderProps {
   onImageSelect: (url: string) => void;
@@ -13,7 +14,36 @@ export default function ImageUploader({ onImageSelect, currentImage, className =
   const [isDragging, setIsDragging] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [compressionInfo, setCompressionInfo] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const compressImage = async (file: File): Promise<File> => {
+    const options = {
+      maxSizeMB: 2,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+      fileType: file.type,
+    };
+
+    try {
+      const compressedFile = await imageCompression(file, options);
+      
+      // Show compression info
+      const originalSize = (file.size / (1024 * 1024)).toFixed(2);
+      const compressedSize = (compressedFile.size / (1024 * 1024)).toFixed(2);
+      const compressionRatio = ((1 - compressedFile.size / file.size) * 100).toFixed(1);
+      
+      setCompressionInfo(
+        `Compressed from ${originalSize}MB to ${compressedSize}MB (${compressionRatio}% reduction)`
+      );
+
+      return compressedFile;
+    } catch (error) {
+      console.error('Compression failed:', error);
+      // If compression fails, return original file
+      return file;
+    }
+  };
 
   const handleFile = async (file: File) => {
     if (!file.type.startsWith('image/')) {
@@ -21,17 +51,16 @@ export default function ImageUploader({ onImageSelect, currentImage, className =
       return;
     }
 
-    if (file.size > 2 * 1024 * 1024) {
-      setError('Image must be smaller than 2MB');
-      return;
-    }
-
     setIsUploading(true);
     setError(null);
+    setCompressionInfo(null);
 
     try {
+      // Compress the image first
+      const compressedFile = await compressImage(file);
+      
       const formData = new FormData();
-      formData.append('file', file);
+      formData.append('file', compressedFile);
 
       const response = await fetch('/api/admin/upload', {
         method: 'POST',
@@ -81,6 +110,7 @@ export default function ImageUploader({ onImageSelect, currentImage, className =
 
   const removeImage = () => {
     onImageSelect('');
+    setCompressionInfo(null);
   };
 
   return (
@@ -133,7 +163,7 @@ export default function ImageUploader({ onImageSelect, currentImage, className =
               {' '}or drag and drop
             </div>
             <p className="text-xs text-gray-500">
-              PNG, JPG, GIF up to 2MB
+              Any image format • Auto-compressed to under 2MB
             </p>
           </div>
         </div>
@@ -141,6 +171,12 @@ export default function ImageUploader({ onImageSelect, currentImage, className =
       
       {error && (
         <p className="mt-2 text-sm text-red-600">{error}</p>
+      )}
+
+      {compressionInfo && (
+        <p className="mt-2 text-sm text-green-600 bg-green-50 p-2 rounded">
+          {compressionInfo}
+        </p>
       )}
       
       {isUploading && (
