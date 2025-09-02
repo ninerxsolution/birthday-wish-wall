@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
     const fileName = `avatar_${timestamp}.${fileExt}`;
 
     // Upload to Supabase Storage
-    const { data, error } = await supabase.storage
+    const { error } = await supabase.storage
       .from('avatars')
       .upload(fileName, file, {
         cacheControl: '3600',

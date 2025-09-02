@@ -3,9 +3,10 @@ import { prisma } from '@/lib/prisma';
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const { name, avatarUrl } = await request.json();
 
     if (!name || typeof name !== 'string' || name.trim().length === 0) {
@@ -23,7 +24,7 @@ export async function PATCH(
     }
 
     const friend = await prisma.friend.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         name: name.trim(),
         avatarUrl: avatarUrl?.trim() || null,
@@ -42,12 +43,13 @@ export async function PATCH(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     // Delete friend and associated wish (cascade)
     await prisma.friend.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     return NextResponse.json({ ok: true });
