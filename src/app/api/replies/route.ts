@@ -38,14 +38,23 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const reply = await prisma.reply.create({
-      data: {
-        wishId,
-        message: message.trim()
-      }
+    const result = await prisma.$transaction(async (tx) => {
+      const newReply = await tx.reply.create({
+        data: {
+          wishId,
+          message: message.trim()
+        }
+      });
+
+      await tx.wish.update({
+        where: { id: wishId },
+        data: { revealed: true }
+      });
+
+      return newReply;
     });
 
-    return NextResponse.json(reply, { status: 201 });
+    return NextResponse.json(result, { status: 201 });
   } catch (error) {
     console.error('Error creating reply:', error);
     return NextResponse.json(
