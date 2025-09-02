@@ -10,6 +10,14 @@ export async function GET() {
         message: true,
         friend: {
           select: { avatarUrl: true }
+        },
+        replies: {
+          select: {
+            id: true,
+            message: true,
+            createdAt: true
+          },
+          orderBy: { createdAt: 'desc' }
         }
       },
       orderBy: { createdAt: 'desc' }
@@ -19,7 +27,8 @@ export async function GET() {
       id: w.id,
       avatarUrl: w.friend?.avatarUrl ?? null,
       revealed: w.revealed,
-      message: w.revealed ? w.message : undefined
+      message: w.revealed ? w.message : undefined,
+      replies: w.replies
     }));
 
     return NextResponse.json({ wishes: payload });

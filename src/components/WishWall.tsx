@@ -9,6 +9,11 @@ type WallWish = {
   avatarUrl: string | null;
   revealed: boolean;
   message?: string;
+  replies: {
+    id: string;
+    message: string;
+    createdAt: string;
+  }[];
 };
 
 export default function WishWall() {
@@ -185,6 +190,34 @@ export default function WishWall() {
                 <div className="text-center">
                   <div className="text-2xl mb-1">🔒</div>
                   Message hidden until reply
+                </div>
+              </div>
+            )}
+
+            {/* Reply Messages Section */}
+            {w.replies && w.replies.length > 0 && (
+              <div className="mt-4 pt-4 border-t border-gray-100">
+                <h4 className="text-sm font-medium text-gray-700 mb-3 flex items-center">
+                  <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
+                  Replies ({w.replies.length})
+                </h4>
+                <div className="space-y-3">
+                  {w.replies.map((reply) => (
+                    <div key={reply.id} className="bg-blue-50 rounded-lg p-3 border border-blue-100">
+                      <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap">
+                        {reply.message}
+                      </p>
+                      <div className="flex items-center justify-between mt-2">
+                        <div className="flex items-center text-xs text-blue-600">
+                          <Heart className="w-3 h-3 mr-1" />
+                          Reply
+                        </div>
+                        <span className="text-xs text-gray-500">
+                          {new Date(reply.createdAt).toLocaleDateString()}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             )}
