@@ -146,7 +146,7 @@ export default function SubmitWish() {
                 <ImageUploader
                   onImageSelect={setCustomImage}
                   currentImage={customImage}
-                  className="max-w-xs"
+                  className="max-w-xs mx-auto"
                 />
               </div>
               

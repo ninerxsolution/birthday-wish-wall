@@ -170,7 +170,7 @@ export default function WishWall() {
                     ? 'bg-green-100 text-green-800' 
                     : 'bg-yellow-100 text-yellow-800'
                 }`}>
-                  {w.revealed ? '✨ Revealed' : '⏳ Awaiting reply'}
+                  {w.revealed ? '✨ขอบคุณค้าบ' : '⏳ รอผมก่อนนะค้าบ'}
                 </span>
               </div>
             </div>
@@ -182,14 +182,13 @@ export default function WishWall() {
                 </p>
                 <div className="flex items-center text-xs text-gray-500">
                   <Heart className="w-3 h-3 mr-1 text-pink-500" />
-                  Message revealed
+                  การันตรีว่านี่คือคำอวยพรคุณภาพ
                 </div>
               </div>
             ) : (
-              <div className="h-20 bg-gradient-to-br from-gray-50 to-gray-100 rounded-md flex items-center justify-center text-gray-400 text-sm border-2 border-dashed border-gray-200">
+              <div className="h-50 bg-gradient-to-br from-gray-50 to-gray-100 rounded-md flex items-center justify-center text-gray-400 text-sm border-2 border-dashed border-gray-200">
                 <div className="text-center">
-                  <div className="text-2xl mb-1">🔒</div>
-                  Message hidden until reply
+                  <div className="text-2xl mb-1">🎁</div>
                 </div>
               </div>
             )}
@@ -199,7 +198,7 @@ export default function WishWall() {
               <div className="mt-4 pt-4 border-t border-gray-100">
                 <h4 className="text-sm font-medium text-gray-700 mb-3 flex items-center">
                   <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
-                  Replies ({w.replies.length})
+                 
                 </h4>
                 <div className="space-y-3">
                   {w.replies.map((reply) => (
@@ -210,7 +209,7 @@ export default function WishWall() {
                       <div className="flex items-center justify-between mt-2">
                         <div className="flex items-center text-xs text-blue-600">
                           <Heart className="w-3 h-3 mr-1" />
-                          Reply
+                          ขอบคุณนะครับ
                         </div>
                         <span className="text-xs text-gray-500">
                           {new Date(reply.createdAt).toLocaleDateString()}

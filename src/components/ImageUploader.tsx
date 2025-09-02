@@ -14,7 +14,7 @@ export default function ImageUploader({ onImageSelect, currentImage, className =
   const [isDragging, setIsDragging] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [compressionInfo, setCompressionInfo] = useState<string | null>(null);
+  const [compressionInfo] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const compressImage = async (file: File): Promise<File> => {
@@ -33,9 +33,9 @@ export default function ImageUploader({ onImageSelect, currentImage, className =
       const compressedSize = (compressedFile.size / (1024 * 1024)).toFixed(2);
       const compressionRatio = ((1 - compressedFile.size / file.size) * 100).toFixed(1);
       
-      setCompressionInfo(
-        `Compressed from ${originalSize}MB to ${compressedSize}MB (${compressionRatio}% reduction)`
-      );
+      // setCompressionInfo(
+      //   `Compressed from ${originalSize}MB to ${compressedSize}MB (${compressionRatio}% reduction)`
+      // );
 
       return compressedFile;
     } catch (error) {
@@ -53,7 +53,7 @@ export default function ImageUploader({ onImageSelect, currentImage, className =
 
     setIsUploading(true);
     setError(null);
-    setCompressionInfo(null);
+    // setCompressionInfo(null);
 
     try {
       // Compress the image first
@@ -110,7 +110,7 @@ export default function ImageUploader({ onImageSelect, currentImage, className =
 
   const removeImage = () => {
     onImageSelect('');
-    setCompressionInfo(null);
+    // setCompressionInfo(null);
   };
 
   return (
@@ -163,7 +163,7 @@ export default function ImageUploader({ onImageSelect, currentImage, className =
               {' '}or drag and drop
             </div>
             <p className="text-xs text-gray-500">
-              Any image format • Auto-compressed to under 2MB
+              ไม่เอารูปแปลกๆ เป็นอันใช้ได้นะ
             </p>
           </div>
         </div>
