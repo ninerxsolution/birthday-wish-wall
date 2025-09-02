@@ -17,10 +17,13 @@ datasource db {
 model Wish {
   id        String   @id @default(cuid())
   name      String?
+  friendId  String?  @unique
   message   String
   createdAt DateTime @default(now())
-  isPublic  Boolean  @default(true)
+  revealed  Boolean  @default(false)
   replies   Reply[]
+
+  friend    Friend?  @relation(fields: [friendId], references: [id])
 
   @@map("wishes")
 }
@@ -33,4 +36,14 @@ model Reply {
   wish      Wish     @relation(fields: [wishId], references: [id], onDelete: Cascade)
 
   @@map("replies")
+}
+
+model Friend {
+  id        String   @id @default(cuid())
+  name      String
+  avatarUrl String?
+  createdAt DateTime @default(now())
+  wish      Wish?
+
+  @@map("friends")
 }
