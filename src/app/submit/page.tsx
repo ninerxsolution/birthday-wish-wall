@@ -230,23 +230,14 @@ export default function SubmitWish() {
               {isSubmitting ? (
                 <>
                   <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                  Sending...
+                  กำลังส่ง...
                 </>
               ) : (
                 <>
                   <Send className="w-5 h-5" />
-                  Send Wish
+                  ส่งคำอวยพรให้เด็กกับคนนี้
                 </>
               )}
-            </button>
-            
-            <button
-              type="button"
-              onClick={() => router.push('/')}
-              className="px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
-            >
-              <ArrowLeft className="w-5 h-5 mr-2 inline" />
-              Cancel
             </button>
           </div>
         </form>
