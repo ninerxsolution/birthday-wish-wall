@@ -7,9 +7,9 @@ export default function AdminNav() {
   const pathname = usePathname();
 
   const tabs = [
-    { href: '/admin', label: 'Wishes' },
-    { href: '/admin/friends', label: 'Friends' },
-    { href: '/admin/settings', label: 'Settings' },
+    { href: '/admin', label: 'คำอวยพร' },
+    { href: '/admin/friends', label: 'เพื่อน' },
+    { href: '/admin/settings', label: 'การตั้งค่า' },
   ];
 
   return (
@@ -18,7 +18,7 @@ export default function AdminNav() {
         <div className="flex justify-between h-16">
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
-              <h1 className="text-xl font-semibold text-gray-900">Admin Dashboard</h1>
+              <h1 className="text-xl font-semibold text-gray-900">แดชบอร์ดแอดมิน</h1>
             </div>
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
               {tabs.map((tab) => (
@@ -39,7 +39,7 @@ export default function AdminNav() {
           <div className="flex items-center">
             <form action="/api/admin/logout" method="post">
               <button className="text-sm text-gray-600 hover:text-gray-900">
-                Logout
+                ออกจากระบบ
               </button>
             </form>
           </div>

@@ -9,14 +9,19 @@ export async function GET() {
           orderBy: { createdAt: 'asc' }
         }
       },
-      orderBy: { createdAt: 'desc' }
+      orderBy: [
+        // First, sort by whether they have replies (no replies first)
+        { replies: { _count: 'asc' } },
+        // Then by creation date (newest first within each group)
+        { createdAt: 'desc' }
+      ]
     });
 
     return NextResponse.json(wishes);
   } catch (error) {
     console.error('Error fetching wishes:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch wishes' },
+      { error: 'โหลดคำอวยพรไม่สำเร็จ' },
       { status: 500 }
     );
   }
@@ -28,21 +33,21 @@ export async function POST(request: NextRequest) {
 
     if (!message || typeof message !== 'string' || message.trim().length === 0) {
       return NextResponse.json(
-        { error: 'Message is required' },
+        { error: 'ต้องใส่ข้อความ' },
         { status: 400 }
       );
     }
 
     if (name && (typeof name !== 'string' || name.trim().length > 100)) {
       return NextResponse.json(
-        { error: 'Name must be a string with maximum 100 characters' },
+        { error: 'ชื่อต้องเป็นข้อความและไม่เกิน 100 ตัวอักษร' },
         { status: 400 }
       );
     }
 
     if (message.trim().length > 1000) {
       return NextResponse.json(
-        { error: 'Message must be maximum 1000 characters' },
+        { error: 'ข้อความต้องไม่เกิน 1000 ตัวอักษร' },
         { status: 400 }
       );
     }
@@ -51,7 +56,7 @@ export async function POST(request: NextRequest) {
     if (friendId) {
       if (typeof friendId !== 'string') {
         return NextResponse.json(
-          { error: 'friendId must be a string' },
+          { error: 'friendId ต้องเป็นข้อความ' },
           { status: 400 }
         );
       }
@@ -59,7 +64,7 @@ export async function POST(request: NextRequest) {
       const existing = await prisma.wish.findUnique({ where: { friendId } });
       if (existing) {
         return NextResponse.json(
-          { error: 'Wish already exists for this friend' },
+          { error: 'เพื่อนคนนี้มีคำอวยพรแล้ว' },
           { status: 409 }
         );
       }
@@ -78,7 +83,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Error creating wish:', error);
     return NextResponse.json(
-      { error: 'Failed to create wish' },
+      { error: 'สร้างคำอวยพรไม่สำเร็จ' },
       { status: 500 }
     );
   }

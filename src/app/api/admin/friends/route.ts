@@ -20,7 +20,7 @@ export async function GET() {
   } catch (error) {
     console.error('Error fetching friends:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch friends' },
+      { error: 'โหลดรายชื่อเพื่อนไม่สำเร็จ' },
       { status: 500 }
     );
   }

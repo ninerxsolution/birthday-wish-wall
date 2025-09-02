@@ -35,7 +35,7 @@ export async function GET() {
   } catch (error) {
     console.error('Error fetching wall data:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch wall data' },
+      { error: 'โหลดข้อมูลกำแพงไม่สำเร็จ' },
       { status: 500 }
     );
   }

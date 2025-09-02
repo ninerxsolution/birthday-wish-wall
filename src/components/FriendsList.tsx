@@ -47,7 +47,7 @@ export default function FriendsList() {
       setFriends(data);
     } catch (error) {
       console.error('Error fetching friends:', error);
-      setError('Failed to load friends. Please try again.');
+      setError('โหลดรายชื่อเพื่อนไม่สำเร็จ กรุณาลองใหม่อีกครั้งค่ะ');
     } finally {
       setLoading(false);
     }
@@ -85,18 +85,18 @@ export default function FriendsList() {
       
       setEditing(null);
       setEditForm({ name: '', avatarUrl: '' });
-      addToast('success', 'Friend updated successfully!');
+      addToast('success', 'อัปเดตเพื่อนสำเร็จแล้ว!');
       await fetchFriends();
     } catch (error) {
       console.error('Error updating friend:', error);
-      addToast('error', error instanceof Error ? error.message : 'Failed to update friend');
+      addToast('error', error instanceof Error ? error.message : 'อัปเดตเพื่อนไม่สำเร็จ');
     } finally {
       setSaving(null);
     }
   };
 
   const deleteFriend = async (friendId: string) => {
-    if (!confirm('Are you sure you want to delete this friend? This will also delete their wish.')) {
+    if (!confirm('คุณแน่ใจหรือไม่ว่าต้องการลบเพื่อนคนนี้? การกระทำนี้จะลบคำอวยพรของเขาด้วย')) {
       return;
     }
     
@@ -110,11 +110,11 @@ export default function FriendsList() {
         throw new Error('Failed to delete friend');
       }
       
-      addToast('success', 'Friend deleted successfully!');
+      addToast('success', 'ลบเพื่อนสำเร็จแล้ว!');
       await fetchFriends();
     } catch (error) {
       console.error('Error deleting friend:', error);
-      addToast('error', 'Failed to delete friend. Please try again.');
+      addToast('error', 'ลบเพื่อนไม่สำเร็จ กรุณาลองใหม่อีกครั้งค่ะ');
     } finally {
       setDeleting(null);
     }
@@ -132,7 +132,7 @@ export default function FriendsList() {
     return (
       <div className="flex flex-col justify-center items-center py-16 space-y-4">
         <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-purple-600"></div>
-        <p className="text-gray-600">Loading friends...</p>
+        <p className="text-gray-600">กำลังโหลดรายชื่อเพื่อน...</p>
       </div>
     );
   }
@@ -142,15 +142,15 @@ export default function FriendsList() {
       <div className="text-center py-16">
         <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
         <h3 className="text-2xl font-semibold text-gray-700 mb-2">
-          Failed to load friends
+          โหลดรายชื่อเพื่อนไม่สำเร็จ
         </h3>
         <p className="text-gray-500 mb-6">{error}</p>
         <button
           onClick={fetchFriends}
-          className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 transition-colors"
+          className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-purple-600 hover:bg-purple-700 transition-colors"
         >
           <RefreshCw className="w-5 h-5 mr-2" />
-          Try Again
+          ลองใหม่
         </button>
       </div>
     );
@@ -161,25 +161,25 @@ export default function FriendsList() {
       <div className="bg-white rounded-lg shadow p-6">
         <div className="flex justify-between items-center mb-6">
           <div>
-            <h2 className="text-xl font-semibold text-gray-900">Friends</h2>
+            <h2 className="text-xl font-semibold text-gray-900">เพื่อน</h2>
             <p className="text-sm text-gray-600 mt-1">
-              {friends.length} total friends • {friends.filter(f => f.wish).length} with wishes
+              {friends.length} เพื่อนทั้งหมด • {friends.filter(f => f.wish).length} มีคำอวยพร
             </p>
           </div>
           <button
             onClick={fetchFriends}
             disabled={loading}
-            className="inline-flex items-center px-3 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 transition-colors"
+            className="inline-flex items-center px-3 py-2 border border-gray-300 text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 transition-colors"
           >
             <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
-            Refresh
+            รีเฟรช
           </button>
         </div>
 
         {friends.length === 0 && (
           <div className="text-center py-12">
             <Users className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <p className="text-gray-500">No friends yet.</p>
+            <p className="text-gray-500">ยังไม่มีเพื่อนเลย</p>
           </div>
         )}
 
@@ -188,19 +188,19 @@ export default function FriendsList() {
             <thead className="bg-gray-50">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Avatar
+                  อวตาร
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Name
+                  ชื่อ
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Wish Status
+                  สถานะคำอวยพร
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Created
+                  สร้างเมื่อ
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Actions
+                  การดำเนินการ
                 </th>
               </tr>
             </thead>
@@ -244,11 +244,11 @@ export default function FriendsList() {
                           ? 'bg-green-100 text-green-800' 
                           : 'bg-yellow-100 text-yellow-800'
                       }`}>
-                        {friend.wish.revealed ? '✨ Revealed' : '⏳ Hidden'}
+                        {friend.wish.revealed ? '✨ แสดงแล้ว' : '⏳ ซ่อนอยู่'}
                       </span>
                     ) : (
                       <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">
-                        No Wish
+                        ไม่มีคำอวยพร
                       </span>
                     )}
                   </td>
@@ -266,12 +266,12 @@ export default function FriendsList() {
                           {saving === friend.id ? (
                             <>
                               <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-green-600 mr-1"></div>
-                              Saving...
+                              กำลังบันทึก...
                             </>
                           ) : (
                             <>
                               <Save className="w-4 h-4 mr-1" />
-                              Save
+                              บันทึก
                             </>
                           )}
                         </button>
@@ -280,7 +280,7 @@ export default function FriendsList() {
                           className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors"
                         >
                           <X className="w-4 h-4 mr-1" />
-                          Cancel
+                          ยกเลิก
                         </button>
                       </div>
                     ) : (
@@ -290,7 +290,7 @@ export default function FriendsList() {
                           className="inline-flex items-center text-indigo-600 hover:text-indigo-900 transition-colors"
                         >
                           <Edit3 className="w-4 h-4 mr-1" />
-                          Edit
+                          แก้ไข
                         </button>
                         <button
                           onClick={() => deleteFriend(friend.id)}
@@ -300,12 +300,12 @@ export default function FriendsList() {
                           {deleting === friend.id ? (
                             <>
                               <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-red-600 mr-1"></div>
-                              Deleting...
+                              กำลังลบ...
                             </>
                           ) : (
                             <>
                               <Trash2 className="w-4 h-4 mr-1" />
-                              Delete
+                              ลบ
                             </>
                           )}
                         </button>

@@ -87,7 +87,7 @@ export default function WishCard({ wish, onUpdate }: WishCardProps) {
         <div className="border-t pt-4 mb-4">
           <h5 className="text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
             <MessageCircle className="w-4 h-4" />
-            Replies ({wish.replies.length})
+            คำตอบ ({wish.replies.length})
           </h5>
           <div className="space-y-3">
             {wish.replies.map((reply) => (
@@ -96,7 +96,7 @@ export default function WishCard({ wish, onUpdate }: WishCardProps) {
                   <div className="w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center text-white text-xs font-semibold">
                     👑
                   </div>
-                  <span className="text-sm font-medium text-gray-700">You</span>
+                  <span className="text-sm font-medium text-gray-700">คุณ</span>
                   <span className="text-xs text-gray-500">
                     {formatDate(reply.createdAt)}
                   </span>
@@ -115,7 +115,7 @@ export default function WishCard({ wish, onUpdate }: WishCardProps) {
           className="flex items-center gap-2 text-sm text-purple-600 hover:text-purple-700 font-medium transition-colors"
         >
           <ReplyIcon className="w-4 h-4" />
-          Reply
+          ตอบกลับ
         </button>
 
         {showReplyForm && (
@@ -123,7 +123,7 @@ export default function WishCard({ wish, onUpdate }: WishCardProps) {
             <textarea
               value={replyMessage}
               onChange={(e) => setReplyMessage(e.target.value)}
-              placeholder="Write your reply..."
+              placeholder="เขียนคำตอบของคุณ..."
               className="w-full p-3 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
               rows={3}
               required
@@ -132,16 +132,16 @@ export default function WishCard({ wish, onUpdate }: WishCardProps) {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="px-4 py-2 bg-purple-600 text-white text-sm font-medium rounded-md hover:bg-purple-700 disabled:opacity-50 transition-colors"
+                className="px-4 py-2 bg-purple-600 text-white text-sm font-medium rounded-lg hover:bg-purple-700 disabled:opacity-50 transition-colors"
               >
-                {isSubmitting ? 'Sending...' : 'Send Reply'}
+                {isSubmitting ? 'กำลังส่ง...' : 'ส่งคำตอบ'}
               </button>
               <button
                 type="button"
                 onClick={() => setShowReplyForm(false)}
-                className="px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium rounded-md hover:bg-gray-300 transition-colors"
+                className="px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-300 transition-colors"
               >
-                Cancel
+                ยกเลิก
               </button>
             </div>
           </form>

@@ -35,16 +35,16 @@ function AdminLoginForm() {
 
   return (
     <div className="max-w-md mx-auto py-16">
-      <h1 className="text-2xl font-bold mb-6 text-center">Admin Login</h1>
+      <h1 className="text-2xl font-bold mb-6 text-center">เข้าสู่ระบบแอดมิน</h1>
       <form onSubmit={onSubmit} className="bg-white p-6 rounded-lg shadow space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Secret Code</label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">รหัสลับ</label>
           <input
             type="password"
             value={code}
             onChange={(e) => setCode(e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-            placeholder="Enter the admin code"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-black placeholder:text-gray-500"
+            placeholder="ใส่รหัสแอดมิน"
             required
           />
         </div>
@@ -54,7 +54,7 @@ function AdminLoginForm() {
           disabled={loading}
           className="w-full px-4 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:opacity-50"
         >
-          {loading ? 'Signing in...' : 'Sign in'}
+          {loading ? 'กำลังเข้าสู่ระบบ...' : 'เข้าสู่ระบบ'}
         </button>
       </form>
     </div>

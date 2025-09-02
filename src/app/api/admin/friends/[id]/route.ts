@@ -11,14 +11,14 @@ export async function PATCH(
 
     if (!name || typeof name !== 'string' || name.trim().length === 0) {
       return NextResponse.json(
-        { error: 'Name is required' },
+        { error: 'ต้องใส่ชื่อ' },
         { status: 400 }
       );
     }
 
     if (name.trim().length > 100) {
       return NextResponse.json(
-        { error: 'Name must be maximum 100 characters' },
+        { error: 'ชื่อต้องไม่เกิน 100 ตัวอักษร' },
         { status: 400 }
       );
     }
@@ -35,7 +35,7 @@ export async function PATCH(
   } catch (error) {
     console.error('Error updating friend:', error);
     return NextResponse.json(
-      { error: 'Failed to update friend' },
+      { error: 'อัปเดตเพื่อนไม่สำเร็จ' },
       { status: 500 }
     );
   }
@@ -56,7 +56,7 @@ export async function DELETE(
   } catch (error) {
     console.error('Error deleting friend:', error);
     return NextResponse.json(
-      { error: 'Failed to delete friend' },
+      { error: 'ลบเพื่อนไม่สำเร็จ' },
       { status: 500 }
     );
   }

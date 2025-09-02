@@ -15,10 +15,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'File must be an image' }, { status: 400 });
     }
 
-    // Validate file size (max 2MB)
-    if (file.size > 2 * 1024 * 1024) {
-      return NextResponse.json({ error: 'File size must be less than 2MB' }, { status: 400 });
-    }
+    // Note: File size validation is handled on the client side with compression
+    // Images are automatically compressed to under 2MB before upload
 
     const supabase = createServerClient();
     

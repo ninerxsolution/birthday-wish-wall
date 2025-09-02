@@ -6,8 +6,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Birthday Wish Wall",
-  description: "A personal platform for collecting and responding to birthday wishes",
+  title: "กำแพงคำอวยพรวันเกิด",
+  description: "แพลตฟอร์มส่วนตัวสำหรับรวบรวมและตอบกลับคำอวยพรวันเกิด",
 };
 
 export default function RootLayout({
@@ -16,10 +16,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="th">
       <body className={inter.className}>
-        <div className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50">
-          <header className="bg-white shadow-sm border-b">
+        <div className="min-h-screen bg-white">
+          {/* <header className="bg-white shadow-sm border-b">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex justify-between items-center py-6">
                 <h1 className="text-3xl font-bold text-gray-900">
@@ -35,7 +35,7 @@ export default function RootLayout({
                 </nav>
               </div>
             </div>
-          </header>
+          </header> */}
           <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             {children}
           </main>

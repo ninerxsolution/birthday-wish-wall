@@ -42,7 +42,7 @@ export default function WishWall() {
       }
     } catch (error) {
       console.error('Error fetching wall:', error);
-      setError('Failed to load birthday wishes. Please try again.');
+      setError('โหลดคำอวยพรวันเกิดไม่สำเร็จ กรุณาลองใหม่อีกครั้งค่ะ');
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -57,7 +57,7 @@ export default function WishWall() {
     return (
       <div className="flex flex-col justify-center items-center py-16 space-y-4">
         <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-purple-600"></div>
-        <p className="text-gray-600">Loading birthday wishes...</p>
+        <p className="text-gray-600">กำลังโหลดคำอวยพรวันเกิด...</p>
       </div>
     );
   }
@@ -68,7 +68,7 @@ export default function WishWall() {
         <div className="text-6xl mb-4">😔</div>
         <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
         <h3 className="text-2xl font-semibold text-gray-700 mb-2">
-          Oops! Something went wrong
+          อ๊ะ! มีอะไรผิดพลาด
         </h3>
         <p className="text-gray-500 mb-6 max-w-md mx-auto">
           {error}
@@ -77,25 +77,25 @@ export default function WishWall() {
           <button
             onClick={handleRefresh}
             disabled={refreshing}
-            className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 disabled:opacity-50 transition-colors"
+            className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-purple-600 hover:bg-purple-700 disabled:opacity-50 transition-colors"
           >
             {refreshing ? (
               <>
                 <RefreshCw className="w-5 h-5 mr-2 animate-spin" />
-                Retrying...
+                กำลังลองใหม่...
               </>
             ) : (
               <>
                 <RefreshCw className="w-5 h-5 mr-2" />
-                Try Again
+                ลองใหม่
               </>
             )}
           </button>
           <Link
             href="/submit"
-            className="inline-flex items-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+            className="inline-flex items-center px-6 py-3 border border-gray-300 text-base font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 transition-colors"
           >
-            Leave a Wish
+            ฝากคำอวยพร
           </Link>
         </div>
       </div>
@@ -107,17 +107,17 @@ export default function WishWall() {
       <div className="text-center py-16">
         <div className="text-6xl mb-4">🎂</div>
         <h3 className="text-2xl font-semibold text-gray-700 mb-2">
-          No wishes yet
+          ยังไม่มีคำอวยพรเลย
         </h3>
         <p className="text-gray-500 mb-6 max-w-md mx-auto">
-          Be the first to leave a birthday wish and make this birthday extra special!
+          เป็นคนแรกที่ฝากคำอวยพรวันเกิดและทำให้วันเกิดนี้พิเศษขึ้นไปอีก!
         </p>
         <Link
           href="/submit"
-          className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 transition-all transform hover:scale-105"
+          className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 transition-all transform hover:scale-105"
         >
           <Heart className="w-5 h-5 mr-2" />
-          Leave a Wish
+          ฝากคำอวยพร
         </Link>
       </div>
     );
@@ -128,35 +128,35 @@ export default function WishWall() {
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <div>
           <h3 className="text-2xl font-semibold text-gray-900">
-            Birthday Wishes ({wishes.length})
+            คำอวยพรวันเกิด ({wishes.length})
           </h3>
           <p className="text-gray-600 mt-1">
-            {wishes.filter(w => w.revealed).length} revealed, {wishes.filter(w => !w.revealed).length} awaiting reply
+            {wishes.filter(w => w.revealed).length} แสดงแล้ว, {wishes.filter(w => !w.revealed).length} รอตอบกลับ
           </p>
         </div>
         <div className="flex gap-3">
           <button
             onClick={handleRefresh}
             disabled={refreshing}
-            className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 transition-colors"
+            className="inline-flex items-center px-4 py-2 border border-gray-700 text-sm font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 transition-colors"
           >
             <RefreshCw className={`w-4 h-4 mr-2 ${refreshing ? 'animate-spin' : ''}`} />
-            {refreshing ? 'Refreshing...' : 'Refresh'}
+            {refreshing ? 'กำลังรีเฟรช...' : 'รีเฟรช'}
           </button>
-          <Link
+          {/* <Link
             href="/submit"
-            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 transition-colors"
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-purple-600 hover:bg-purple-700 transition-colors"
           >
             + Add Wish
-          </Link>
+          </Link> */}
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {wishes.map((w) => (
-          <div key={w.id} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-200 transform hover:-translate-y-1">
+          <div key={w.id} className="bg-white rounded-4xl border-2 border-gray-600 shadow-md p-6 hover:shadow-lg transition-all duration-200 transform hover:-translate-y-1">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 rounded-full overflow-hidden bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white shadow-md">
+              <div className="w-12 h-12 rounded-full overflow-hidden bg-white border-2 border-gray-600 flex items-center justify-center text-white shadow-md">
                 {w.avatarUrl && (w.avatarUrl.startsWith('http://') || w.avatarUrl.startsWith('https://')) ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={w.avatarUrl} alt="avatar" className="w-full h-full object-cover" />
@@ -170,7 +170,7 @@ export default function WishWall() {
                     ? 'bg-green-100 text-green-800' 
                     : 'bg-yellow-100 text-yellow-800'
                 }`}>
-                  {w.revealed ? '✨ Revealed' : '⏳ Awaiting reply'}
+                  {w.revealed ? '✨ขอบคุณค้าบ' : '⏳ รอผมก่อนนะค้าบ'}
                 </span>
               </div>
             </div>
@@ -182,14 +182,13 @@ export default function WishWall() {
                 </p>
                 <div className="flex items-center text-xs text-gray-500">
                   <Heart className="w-3 h-3 mr-1 text-pink-500" />
-                  Message revealed
+                  การันตรีว่านี่คือคำอวยพรคุณภาพ
                 </div>
               </div>
             ) : (
-              <div className="h-20 bg-gradient-to-br from-gray-50 to-gray-100 rounded-md flex items-center justify-center text-gray-400 text-sm border-2 border-dashed border-gray-200">
+              <div className="h-50 bg-gradient-to-br from-gray-50 to-gray-100 rounded-4xl flex items-center justify-center text-gray-400 text-sm border-2 border-dashed border-gray-200">
                 <div className="text-center">
-                  <div className="text-2xl mb-1">🔒</div>
-                  Message hidden until reply
+                  <div className="text-2xl mb-1">🎁</div>
                 </div>
               </div>
             )}
@@ -199,18 +198,18 @@ export default function WishWall() {
               <div className="mt-4 pt-4 border-t border-gray-100">
                 <h4 className="text-sm font-medium text-gray-700 mb-3 flex items-center">
                   <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
-                  Replies ({w.replies.length})
+                 
                 </h4>
                 <div className="space-y-3">
                   {w.replies.map((reply) => (
-                    <div key={reply.id} className="bg-blue-50 rounded-lg p-3 border border-blue-100">
+                    <div key={reply.id} className="bg-red-50 rounded-3xl p-3 border border-red-300">
                       <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap">
                         {reply.message}
                       </p>
                       <div className="flex items-center justify-between mt-2">
-                        <div className="flex items-center text-xs text-blue-600">
+                        <div className="flex items-center text-xs text-red-600">
                           <Heart className="w-3 h-3 mr-1" />
-                          Reply
+                          ขอบคุณนะครับ
                         </div>
                         <span className="text-xs text-gray-500">
                           {new Date(reply.createdAt).toLocaleDateString()}
