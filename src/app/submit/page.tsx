@@ -209,9 +209,9 @@ export default function SubmitWish() {
               maxLength={1000}
             />
             <div className="flex justify-between items-center mt-1">
-              <p className="text-sm text-gray-500">
-                Share your heartfelt wishes, memories, or just a simple "Happy Birthday!"
-              </p>
+                              <p className="text-sm text-gray-500">
+                  Share your heartfelt wishes, memories, or just a simple &ldquo;Happy Birthday!&rdquo;
+                </p>
               <p className="text-xs text-gray-400">
                 {formData.message.length}/1000
               </p>
@@ -256,7 +256,7 @@ export default function SubmitWish() {
           <div className="mt-2 text-xs text-gray-400">
             <p>• One wish per person (enforced)</p>
             <p>• Messages are hidden until the birthday person replies</p>
-            <p>• Your name is optional and won't be displayed publicly</p>
+            <p>• Your name is optional and won&apos;t be displayed publicly</p>
           </div>
         </div>
       </div>
