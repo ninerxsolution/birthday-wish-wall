@@ -32,7 +32,7 @@ export default function SubmitWish() {
 
     setIsSubmitting(true);
     setError(null);
-    
+
     try {
       // Step 1: ensure we have a friend profile (for now create lightweight profile with name only)
       let currentFriendId = friendId;
@@ -40,9 +40,9 @@ export default function SubmitWish() {
         const friendRes = await fetch('/api/friends', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ 
-            name: formData.name || 'Friend', 
-            avatarUrl: customImage || emoji 
+          body: JSON.stringify({
+            name: formData.name || 'Friend',
+            avatarUrl: customImage || emoji
           })
         });
         if (!friendRes.ok) {
@@ -118,12 +118,10 @@ export default function SubmitWish() {
     <div className="max-w-2xl mx-auto">
       <div className="text-center mb-8">
         <div className="text-6xl mb-4">🎂</div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">
-          ฝากคำอวยพรวันเกิด
-        </h1>
-        <p className="text-lg text-gray-600">
-          แชร์คำอวยพรสุดอบอุ่นของคุณและทำให้วันเกิดนี้พิเศษขึ้นไปอีก!
-        </p>
+        <img src="https://scontent.fbkk5-6.fna.fbcdn.net/v/t39.30808-6/490694023_2173736456396493_7439228124013840998_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=127cfc&_nc_ohc=m5zpdc1tc6kQ7kNvwHD3i7J&_nc_oc=Adlzvd5elyN0rzPB11rBqzu8Bl8RUixc0ZtgplpYR_aDa3AHyaQBEjLxPwtJzvHa7Co&_nc_zt=23&_nc_ht=scontent.fbkk5-6.fna&_nc_gid=h20VwgrbGw0vJqfxrX3QBg&oh=00_AfW7xKP_fCzKlj1_U6p2YdJeNU79b1cHcDFZIEe5wnAxdw&oe=68BCF69E" alt="Boy" className="w-57 h-57 mx-auto mb-4 mt-4 rounded-xl" />
+        <b className='text-lg text-gray-600'>เด็กชายมัทราวุธ เมียดมอ เกิดวันที่ 3 กันยายน</b> <br></br>
+        <b className='text-lg text-gray-600'>อายุ 23 ปี บรีบูรณ์ ณ today</b>
+
       </div>
 
       <div className="bg-white rounded-4xl border-2 border-gray-600 shadow-md p-8">
@@ -138,23 +136,31 @@ export default function SubmitWish() {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">เลือกอวตาร</label>
+            <div className='text-center'>
+              <h1 className="text-cetner text-3xl font-bold text-gray-900 mb-2">
+                ฝากคำอวยพรวันเกิดให้เด็กชายคนนี้
+              </h1>
+              <p className="text-lg text-gray-600 mb-8">
+                เขียนคำอวยพรสุดอบอุ่นและหล่อเท่ของคุณ ทำให้วันเกิดของผมนี้พิเศษขึ้นไปอีก!
+              </p>
+            </div>
+            <div className="mb-6 mt-4 h-1 w-full rounded-full bg-gradient-to-r from-pink-500 to-purple-600" />
+            <label className="block text-sm font-bold text-gray-700 mb-2">เลือกรูปโปรไฟล์</label>
             <div className="space-y-4">
               {/* Custom Image Upload */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">อัปโหลดรูปภาพเอง</label>
                 <ImageUploader
                   onImageSelect={setCustomImage}
                   currentImage={customImage}
-                  className="max-w-xs mx-auto"
+                  className={`max-w-xs mx-auto ${customImage ? 'flex justify-center' : ''}`}
                 />
               </div>
-              
+
               {/* Emoji Picker */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">หรือเลือกอีโมจิ</label>
-                <div className="grid grid-cols-8 gap-2">
-                  {['🎉','🎂','🎈','🎁','✨','💖','🌟','🥳','😊','😄','😎','🤗','🌈','🍰','🍩','🍓','🍬','🍀','🦄','🐶','🐱','🐼','🦊','🦋'].map((e) => (
+                <label className="block text-sm font-bold text-gray-700 mb-4">หรือเลือกอีโมจิแทนก็ได้นะ</label>
+                <div className="flex flex-wrap align-center justify-center gap-2">
+                  {['🎉', '🎂', '🎈', '🎁', '✨', '💖', '🌟', '🥳', '😊', '😄', '😎', '🤗', '🌈', '🍰', '🍩', '🍓', '🍬', '🍀', '🦄', '🐶', '🐱', '🐼', '🦊', '🦋'].map((e) => (
                     <button
                       key={e}
                       type="button"
@@ -162,59 +168,57 @@ export default function SubmitWish() {
                         setEmoji(e);
                         setCustomImage(null); // Clear custom image when emoji is selected
                       }}
-                      className={`h-10 w-10 rounded-full flex items-center justify-center text-xl border transition-all ${
-                        (emoji === e && !customImage) ? 'border-purple-600 ring-2 ring-purple-200 scale-110' : 'border-gray-200 hover:border-gray-300 hover:scale-105'
-                      }`}
+                      className={`h-10 w-10 rounded-full flex items-center justify-center text-xl border transition-all ${(emoji === e && !customImage) ? 'border-purple-600 ring-2 ring-purple-200 scale-110' : 'border-gray-200 hover:border-gray-300 hover:scale-105'
+                        }`}
                       aria-label={`Select ${e}`}
                     >
                       {e}
                     </button>
                   ))}
                 </div>
-                                 <p className="text-xs text-gray-500 mt-2">
-                   อวตารของคุณจะปรากฏบนกำแพง แต่ชื่อจะถูกซ่อนไว้ 
-                   รูปภาพจะถูกบีบอัดอัตโนมัติเพื่อประสิทธิภาพที่ดีที่สุด
-                 </p>
+                <p className="text-xs text-gray-500 mt-2">
+                  รูปหรืออีโมจิของเจ้าจะไปแสดงบนกระดานคำอวยพร เพราะงั้น แอ็คไว้นะ
+                </p>
               </div>
             </div>
           </div>
 
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-              ชื่อของคุณ (ไม่บังคับ)
+            <label htmlFor="name" className="block text-sm font-bold text-gray-700 mb-2">
+              ชื่อ (ไม่บังคับ ใส่ก็ได้ ไม่ใส่ก็ ใส่หน่อยเถอะนะ ขอล่ะ)
             </label>
             <input
               type="text"
               id="name"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors text-grey-700 placeholder:text-gray-500"
-              placeholder="ใส่ชื่อของคุณหรือปล่อยว่างไว้"
+              className="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors text-black placeholder:text-gray-500"
+              placeholder="ใส่มาสิ ใส่มาตรงนี้เลย ชื่อของแกน่ะ"
               maxLength={100}
             />
             <p className="text-xs text-gray-500 mt-1">
-              {formData.name.length}/100 ตัวอักษร
+              {formData.name.length}/100 ตัวอักษร ถ้าเกินเดี๋ยวตีมือ
             </p>
           </div>
 
           <div>
-            <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-              คำอวยพรวันเกิด <span className="text-red-500">*</span>
+            <label htmlFor="message" className="block text-sm font-bold text-gray-700 mb-2">
+              คำอวยพร <span className="text-red-500">*</span>
             </label>
             <textarea
               id="message"
               value={formData.message}
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-              className="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none transition-colors text-grey-700 placeholder:text-gray-500"
-              placeholder="เขียนคำอวยพรวันเกิดของคุณที่นี่..."
+              className="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none transition-colors text-black placeholder:text-gray-500"
+              placeholder="เขียนคำอวยพร..."
               rows={6}
               required
               maxLength={1000}
             />
             <div className="flex justify-between items-center mt-1">
-                              <p className="text-sm text-gray-500">
-                  แชร์คำอวยพรจากใจ ความทรงจำ หรือแค่คำง่าย ๆ ว่า &ldquo;สุขสันต์วันเกิด!&rdquo;
-                </p>
+              <p className="text-sm text-gray-500">
+                มอบคำอวยพรจากใจ ความทรงจำ หรือแค่คำง่าย ๆ ว่า &ldquo;สุขสันต์วันเกิด!&rdquo;
+              </p>
               <p className="text-xs text-gray-400">
                 {formData.message.length}/1000
               </p>
@@ -235,7 +239,7 @@ export default function SubmitWish() {
               ) : (
                 <>
                   <Send className="w-5 h-5" />
-                  ส่งคำอวยพรให้คนนี้
+                  ส่งคำอวยพรให้ฉันคนนี้
                 </>
               )}
             </button>
@@ -245,11 +249,11 @@ export default function SubmitWish() {
         <div className="mt-8 pt-6 border-t border-gray-200">
           <div className="flex items-center gap-2 text-sm text-gray-500">
             <Heart className="w-4 h-4 text-pink-500" />
-            <span>คำอวยพรของคุณจะแสดงสาธารณะบนกำแพงวันเกิด</span>
+            <span>คำอวยพรจะแสดงสาธารณะบนกระดานคำอวยพร</span>
           </div>
           <div className="mt-2 text-xs text-gray-400">
             <p>• หนึ่งคำอวยพรต่อคน (บังคับ)</p>
-            <p>• ข้อความจะถูกซ่อนจนกว่าคนวันเกิดจะตอบกลับ</p>
+            <p>• ข้อความจะถูกซ่อนจนกว่าฉันจะตอบกลับ</p>
             <p>• ชื่อของคุณไม่บังคับและจะไม่แสดงสาธารณะ</p>
           </div>
         </div>
