@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase';
+import { checkAdminAuth, getAdminAuthError } from '@/lib/admin-auth';
 
 export async function POST(request: NextRequest) {
+  if (!checkAdminAuth(request)) {
+    return NextResponse.json(getAdminAuthError(), { status: 401 });
+  }
   try {
     const formData = await request.formData();
     const file = formData.get('file') as File;
