@@ -132,7 +132,7 @@ export default function ImageUploader({ onImageSelect, currentImage, className =
         </div>
       ) : (
         <div
-          className={`border-2 border-dashed rounded-lg p-6 text-center transition-colors ${
+          className={`border-2 border-dashed rounded-4xl p-6 text-center transition-colors ${
             isDragging
               ? 'border-purple-500 bg-purple-50'
               : 'border-gray-300 hover:border-gray-400'

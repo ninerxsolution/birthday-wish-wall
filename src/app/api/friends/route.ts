@@ -7,21 +7,21 @@ export async function POST(request: NextRequest) {
 
     if (!name || typeof name !== 'string' || name.trim().length === 0) {
       return NextResponse.json(
-        { error: 'Name is required' },
+        { error: 'ต้องใส่ชื่อ' },
         { status: 400 }
       );
     }
 
     if (name.trim().length > 100) {
       return NextResponse.json(
-        { error: 'Name must be maximum 100 characters' },
+        { error: 'ชื่อต้องไม่เกิน 100 ตัวอักษร' },
         { status: 400 }
       );
     }
 
     if (avatarUrl && typeof avatarUrl !== 'string') {
       return NextResponse.json(
-        { error: 'avatarUrl must be a string URL' },
+        { error: 'avatarUrl ต้องเป็น URL ข้อความ' },
         { status: 400 }
       );
     }
@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Error creating friend:', error);
     return NextResponse.json(
-      { error: 'Failed to create friend' },
+      { error: 'สร้างเพื่อนไม่สำเร็จ' },
       { status: 500 }
     );
   }

@@ -7,11 +7,11 @@ export async function POST(request: NextRequest) {
   const expected = process.env.ADMIN_SECRET_CODE;
 
   if (!expected) {
-    return NextResponse.json({ error: 'ADMIN_SECRET_CODE not configured' }, { status: 500 });
+    return NextResponse.json({ error: 'ADMIN_SECRET_CODE ยังไม่ได้ตั้งค่า' }, { status: 500 });
   }
 
   if (!code || code !== expected) {
-    return NextResponse.json({ error: 'Invalid code' }, { status: 401 });
+    return NextResponse.json({ error: 'รหัสไม่ถูกต้อง' }, { status: 401 });
   }
 
   const res = NextResponse.json({ ok: true });

@@ -91,24 +91,24 @@ export default function SubmitWish() {
         <div className="text-6xl mb-4">🎉</div>
         <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
         <h2 className="text-2xl font-bold text-gray-900 mb-2">
-          Wish Submitted!
+          ส่งคำอวยพรสำเร็จแล้ว!
         </h2>
         <p className="text-gray-600 mb-4">
-          Thank you for your birthday wish! It will appear on the wall shortly.
+          ขอบคุณสำหรับคำอวยพรวันเกิดนะคะ! จะปรากฏบนกำแพงเร็ว ๆ นี้เลยค่ะ
         </p>
         <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
           <p className="text-sm text-green-800">
-            <strong>Tip:</strong> Your wish will be hidden until the birthday person replies to it.
+            <strong>เคล็ดลับ:</strong> คำอวยพรของคุณจะถูกซ่อนไว้จนกว่าคนวันเกิดจะตอบกลับค่ะ
           </p>
         </div>
         <p className="text-sm text-gray-500">
-          Redirecting to the wish wall in 3 seconds...
+          กำลังพาไปที่กำแพงคำอวยพรใน 3 วินาที...
         </p>
         <button
           onClick={() => router.push('/')}
           className="mt-4 text-sm text-purple-600 hover:text-purple-700 underline"
         >
-          Go now
+          ไปเลย
         </button>
       </div>
     );
@@ -119,16 +119,16 @@ export default function SubmitWish() {
       <div className="text-center mb-8">
         <div className="text-6xl mb-4">🎂</div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
-          Leave a Birthday Wish
+          ฝากคำอวยพรวันเกิด
         </h1>
         <p className="text-lg text-gray-600">
-          Share your warm wishes and make this birthday extra special!
+          แชร์คำอวยพรสุดอบอุ่นของคุณและทำให้วันเกิดนี้พิเศษขึ้นไปอีก!
         </p>
       </div>
 
-      <div className="bg-white rounded-lg shadow-md p-8">
+      <div className="bg-white rounded-4xl border-2 border-gray-600 shadow-md p-8">
         {error && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-4xl">
             <div className="flex items-center">
               <AlertCircle className="w-5 h-5 text-red-500 mr-2" />
               <p className="text-red-800">{error}</p>
@@ -138,11 +138,11 @@ export default function SubmitWish() {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Choose an avatar</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">เลือกอวตาร</label>
             <div className="space-y-4">
               {/* Custom Image Upload */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Upload Custom Image</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">อัปโหลดรูปภาพเอง</label>
                 <ImageUploader
                   onImageSelect={setCustomImage}
                   currentImage={customImage}
@@ -152,7 +152,7 @@ export default function SubmitWish() {
               
               {/* Emoji Picker */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Or choose an emoji</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">หรือเลือกอีโมจิ</label>
                 <div className="grid grid-cols-8 gap-2">
                   {['🎉','🎂','🎈','🎁','✨','💖','🌟','🥳','😊','😄','😎','🤗','🌈','🍰','🍩','🍓','🍬','🍀','🦄','🐶','🐱','🐼','🦊','🦋'].map((e) => (
                     <button
@@ -162,7 +162,7 @@ export default function SubmitWish() {
                         setEmoji(e);
                         setCustomImage(null); // Clear custom image when emoji is selected
                       }}
-                      className={`h-10 w-10 rounded-md flex items-center justify-center text-xl border transition-all ${
+                      className={`h-10 w-10 rounded-full flex items-center justify-center text-xl border transition-all ${
                         (emoji === e && !customImage) ? 'border-purple-600 ring-2 ring-purple-200 scale-110' : 'border-gray-200 hover:border-gray-300 hover:scale-105'
                       }`}
                       aria-label={`Select ${e}`}
@@ -172,8 +172,8 @@ export default function SubmitWish() {
                   ))}
                 </div>
                                  <p className="text-xs text-gray-500 mt-2">
-                   Your avatar appears on the wall; your name stays hidden. 
-                   Images are automatically compressed for optimal performance.
+                   อวตารของคุณจะปรากฏบนกำแพง แต่ชื่อจะถูกซ่อนไว้ 
+                   รูปภาพจะถูกบีบอัดอัตโนมัติเพื่อประสิทธิภาพที่ดีที่สุด
                  </p>
               </div>
             </div>
@@ -181,39 +181,39 @@ export default function SubmitWish() {
 
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-              Your Name (Optional)
+              ชื่อของคุณ (ไม่บังคับ)
             </label>
             <input
               type="text"
               id="name"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors"
-              placeholder="Enter your name or leave anonymous"
+              className="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors text-grey-700 placeholder:text-gray-500"
+              placeholder="ใส่ชื่อของคุณหรือปล่อยว่างไว้"
               maxLength={100}
             />
             <p className="text-xs text-gray-500 mt-1">
-              {formData.name.length}/100 characters
+              {formData.name.length}/100 ตัวอักษร
             </p>
           </div>
 
           <div>
             <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-              Birthday Message <span className="text-red-500">*</span>
+              คำอวยพรวันเกิด <span className="text-red-500">*</span>
             </label>
             <textarea
               id="message"
               value={formData.message}
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none transition-colors"
-              placeholder="Write your birthday wish here..."
+              className="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none transition-colors text-grey-700 placeholder:text-gray-500"
+              placeholder="เขียนคำอวยพรวันเกิดของคุณที่นี่..."
               rows={6}
               required
               maxLength={1000}
             />
             <div className="flex justify-between items-center mt-1">
                               <p className="text-sm text-gray-500">
-                  Share your heartfelt wishes, memories, or just a simple &ldquo;Happy Birthday!&rdquo;
+                  แชร์คำอวยพรจากใจ ความทรงจำ หรือแค่คำง่าย ๆ ว่า &ldquo;สุขสันต์วันเกิด!&rdquo;
                 </p>
               <p className="text-xs text-gray-400">
                 {formData.message.length}/1000
@@ -225,7 +225,7 @@ export default function SubmitWish() {
             <button
               type="submit"
               disabled={isSubmitting || !formData.message.trim()}
-              className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-medium rounded-lg hover:from-pink-600 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all transform hover:scale-105"
+              className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-medium rounded-4xl hover:from-pink-600 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all transform hover:scale-105"
             >
               {isSubmitting ? (
                 <>
@@ -235,7 +235,7 @@ export default function SubmitWish() {
               ) : (
                 <>
                   <Send className="w-5 h-5" />
-                  ส่งคำอวยพรให้เด็กกับคนนี้
+                  ส่งคำอวยพรให้คนนี้
                 </>
               )}
             </button>
@@ -245,12 +245,12 @@ export default function SubmitWish() {
         <div className="mt-8 pt-6 border-t border-gray-200">
           <div className="flex items-center gap-2 text-sm text-gray-500">
             <Heart className="w-4 h-4 text-pink-500" />
-            <span>Your wish will be displayed publicly on the birthday wall</span>
+            <span>คำอวยพรของคุณจะแสดงสาธารณะบนกำแพงวันเกิด</span>
           </div>
           <div className="mt-2 text-xs text-gray-400">
-            <p>• One wish per person (enforced)</p>
-            <p>• Messages are hidden until the birthday person replies</p>
-            <p>• Your name is optional and won&apos;t be displayed publicly</p>
+            <p>• หนึ่งคำอวยพรต่อคน (บังคับ)</p>
+            <p>• ข้อความจะถูกซ่อนจนกว่าคนวันเกิดจะตอบกลับ</p>
+            <p>• ชื่อของคุณไม่บังคับและจะไม่แสดงสาธารณะ</p>
           </div>
         </div>
       </div>

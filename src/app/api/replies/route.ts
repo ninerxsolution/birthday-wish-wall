@@ -7,21 +7,21 @@ export async function POST(request: NextRequest) {
 
     if (!wishId || typeof wishId !== 'string') {
       return NextResponse.json(
-        { error: 'Wish ID is required' },
+        { error: 'ต้องใส่ ID คำอวยพร' },
         { status: 400 }
       );
     }
 
     if (!message || typeof message !== 'string' || message.trim().length === 0) {
       return NextResponse.json(
-        { error: 'Message is required' },
+        { error: 'ต้องใส่ข้อความ' },
         { status: 400 }
       );
     }
 
     if (message.trim().length > 1000) {
       return NextResponse.json(
-        { error: 'Message must be maximum 1000 characters' },
+        { error: 'ข้อความต้องไม่เกิน 1000 ตัวอักษร' },
         { status: 400 }
       );
     }
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
 
     if (!wish) {
       return NextResponse.json(
-        { error: 'Wish not found' },
+        { error: 'ไม่พบคำอวยพร' },
         { status: 404 }
       );
     }
@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Error creating reply:', error);
     return NextResponse.json(
-      { error: 'Failed to create reply' },
+      { error: 'สร้างคำตอบไม่สำเร็จ' },
       { status: 500 }
     );
   }
