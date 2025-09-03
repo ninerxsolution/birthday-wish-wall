@@ -213,7 +213,7 @@ export default function AdminWishList() {
               {replying === w.id && (
                 <div className="mt-4 p-4 bg-gray-50 rounded-lg">
                   <textarea
-                    className="w-full p-3 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    className="w-full p-3 border border-gray-300 text-black rounded-lg resize-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                     rows={3}
                     value={reply}
                     onChange={(e) => setReply(e.target.value)}
