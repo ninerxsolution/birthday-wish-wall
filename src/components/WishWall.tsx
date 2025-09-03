@@ -177,7 +177,7 @@ export default function WishWall() {
 
             {w.revealed ? (
               <div className="space-y-3">
-                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap text-sm">
+                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap text-sm max-h-[200px] overflow-y-auto">
                   {w.message}
                 </p>
                 <div className="flex items-center text-xs text-gray-500">
