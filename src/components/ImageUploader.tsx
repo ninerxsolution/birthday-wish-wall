@@ -62,7 +62,7 @@ export default function ImageUploader({ onImageSelect, currentImage, className =
       const formData = new FormData();
       formData.append('file', compressedFile);
 
-      const response = await fetch('/api/admin/upload', {
+      const response = await fetch('/api/upload', {
         method: 'POST',
         body: formData,
       });
